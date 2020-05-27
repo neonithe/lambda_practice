@@ -1,6 +1,12 @@
 package se.lexicon;
 
 import se.lexicon.data.DataStorage;
+import se.lexicon.model.Gender;
+import se.lexicon.model.Person;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class Exercises {
 
@@ -11,8 +17,9 @@ public class Exercises {
     */
     public static void exercise1(String message){
         System.out.println(message);
-        //Write your code here
-
+        Predicate<Person> firstNameErik = person -> person.getFirstName().equalsIgnoreCase("Erik");
+        List<Person> personList = storage.findMany(firstNameErik);
+        personList.forEach(System.out::println);
         System.out.println("----------------------");
     }
 
@@ -21,7 +28,8 @@ public class Exercises {
      */
     public static void exercise2(String message){
         System.out.println(message);
-        //Write your code here
+        storage.findMany(person -> person.getGender() == Gender.FEMALE)
+                .forEach(System.out::println);
 
         System.out.println("----------------------");
     }
@@ -31,7 +39,11 @@ public class Exercises {
      */
     public static void exercise3(String message){
         System.out.println(message);
-        //Write your code here
+        LocalDate date = LocalDate.parse("2000-01-01");
+        Predicate<Person> bornAfter = person ->
+                person.getBirthDate().isAfter(date) || person.getBirthDate().equals(date);
+
+        storage.findMany(bornAfter).forEach(System.out::println);
 
         System.out.println("----------------------");
     }
@@ -41,7 +53,7 @@ public class Exercises {
      */
     public static void exercise4(String message){
         System.out.println(message);
-        //Write your code here
+        System.out.println(storage.findOne(person -> person.getId() == 123));
 
         System.out.println("----------------------");
 
