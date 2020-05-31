@@ -5,11 +5,13 @@ import se.lexicon.model.Person;
 import se.lexicon.util.PersonGenerator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 /**
@@ -67,20 +69,43 @@ public class DataStorageImpl implements DataStorage {
 
     @Override
     public List<String> findManyAndMapEachToString(Predicate<Person> filter, Function<Person, String> personToString){
-       return null;
+        List<String> stringList = new ArrayList<>();
+            for(Person person : personList){
+                if(filter.test(person)){
+                    stringList.add(person.toString());
+                }
+            }
+       return stringList;
     }
 
     @Override
     public void findAndDo(Predicate<Person> filter, Consumer<Person> consumer){
+        for(Person person : personList){
+            if(filter.test(person)){
+                consumer.accept(person);
+            }
+        }
     }
 
     @Override
     public List<Person> findAndSort(Comparator<Person> comparator){
-       return null;
+        List<Person> result = new ArrayList<>();
+            for(Person person : personList){
+                result.add(person);
+            }
+            result.sort(comparator);
+       return result;
     }
 
     @Override
     public List<Person> findAndSort(Predicate<Person> filter, Comparator<Person> comparator){
-       return null;
+        List<Person> result = new ArrayList<>();
+            for(Person person : personList){
+                if(filter.test(person)){
+                    result.add(person);
+                }
+            }
+        result.sort(comparator);
+       return result;
     }
 }

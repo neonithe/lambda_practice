@@ -89,8 +89,7 @@ public class Person {
 		sb.append(", firstName='").append(firstName).append('\'');
 		sb.append(", lastName='").append(lastName).append('\'');
 		sb.append(", birthDate=").append(birthDate);
-		sb.append(", gender=").append(gender);
-		sb.append('}');
+		sb.append(", gender=").append(gender).append("\n");
 		return sb.toString();
 	}
 }
